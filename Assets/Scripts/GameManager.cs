@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	public GameState gameState;
 
 	public static int numberOfRowers;
-	public static int maxNumberOfRowers = 2;
+	public static readonly int maxNumberOfRowers = 2;
 
 	// Use this for initialization
 	void Start () {
