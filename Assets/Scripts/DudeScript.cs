@@ -12,7 +12,7 @@ public class DudeScript : MonoBehaviour {
 	[Range(0, 100)]
 	public int energy = 100;
 
-	enum Status {
+	public enum Status {
 		Idle,
 		Fishing,
 		Sleeping,
@@ -22,8 +22,8 @@ public class DudeScript : MonoBehaviour {
 		Died
 	} 
 
-	private readonly float energyPlusCoef = 1.0;
-	private readonly float energyMinusCoef = 1.0;
+	private readonly float energyPlusCoef = 1.0f;
+	private readonly float energyMinusCoef = 1.0f;
 
 	public Status currentStatus;
 
@@ -40,75 +40,75 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void updateFood () {
-		float standartCoef = -1.0;
-		float coef;
+		float standartCoef = -1.0f;
+		float coef = 0.0f;
 		switch (currentStatus) {
 		case Status.Fishing:
 		case Status.Idle:
 		case Status.Drinking:
-			coef = 1.0 * standartCoef;
+			coef = 1.0f * standartCoef;
 			break;
 		case Status.Died:
-			coef = 0.0 * standartCoef;
+			coef = 0.0f * standartCoef;
 			break;
 		case Status.Sleeping:
-			coef = 0.5 * standartCoef;
+			coef = 0.5f * standartCoef;
 			break;
 		case Status.Rowing:
-			coef = 2.0 * standartCoef;
+			coef = 2.0f * standartCoef;
 			break;
 		case Status.Eating:
-			coef = -5.0 * standartCoef;
+			coef = -5.0f * standartCoef;
 			break;
 		}
-		food += coef * Time.deltaTime;
+		food += (int)(coef * Time.deltaTime);
 	}
 
 	void updateWater () {
-		float standartCoef = -1.0;
-		float coef;
+		float standartCoef = -1.0f;
+		float coef = 0.0f;
 		switch (currentStatus) {
 		case Status.Idle:
 		case Status.Eating:
-			coef = 1.0 * standartCoef;
+			coef = 1.0f * standartCoef;
 			break;
 		case Status.Died:
-			coef = 0.0 * standartCoef;
+			coef = 0.0f * standartCoef;
 			break;
 		case Status.Sleeping:
-			coef = 1.5 * standartCoef;
+			coef = 1.5f * standartCoef;
 			break;
 		case Status.Rowing:
 		case Status.Fishing:
-			coef = 2.0 * standartCoef;
+			coef = 2.0f * standartCoef;
 			break;
 		case Status.Drinking:
-			coef = -5.0 * standartCoef;
+			coef = -5.0f * standartCoef;
 			break;
 		}
-		water += coef * Time.deltaTime;
+		water += (int)(coef * Time.deltaTime);
 	}
 
 	void updateEnergy () {
-		float standartCoef = -1.0;
-		float coef;
+		float standartCoef = -1.0f;
+		float coef = 0.0f;
 		switch (currentStatus) {
 		case Status.Eating:
 		case Status.Drinking:
-			coef = -0.5 * standartCoef;
+			coef = -0.5f * standartCoef;
 			break;
 		case Status.Died:
 		case Status.Idle:
-			coef = 0.0 * standartCoef;
+			coef = 0.0f * standartCoef;
 			break;
 		case Status.Rowing:
 		case Status.Fishing:
-			coef = 2.5 * standartCoef;
+			coef = 2.5f * standartCoef;
 			break;
 		case Status.Sleeping:
-			coef = -5.0 * standartCoef;
+			coef = -5.0f * standartCoef;
 			break;
 		}
-		energy += coef * Time.deltaTime;
+		energy += (int)(coef * Time.deltaTime);
 	}
 }
