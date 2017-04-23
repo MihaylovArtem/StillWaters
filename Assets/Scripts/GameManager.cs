@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	public Camera camera;
+	public Camera cameraObject;
 
-	public GameObject player1;
-	public GameObject player2;
-	public GameObject player3;
-	public GameObject player4;
+	public GameObject[] players;
+
+	public int currentCameraPosition;
+
 	public static int foodUnits;
 	public static readonly int maxFoodUnits = 15;
 
@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour {
 		
 	public GameState gameState;
 
-	public static int numberOfRowers;
-	public static readonly int maxNumberOfRowers = 2;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -40,6 +37,15 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		AddFood ();
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			SwitchToPosition (1);
+		} else if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			SwitchToPosition (2);
+		} else if (Input.GetKeyUp (KeyCode.Alpha3)) {
+			SwitchToPosition (3);
+		} else if (Input.GetKeyUp (KeyCode.Alpha4)) {
+			SwitchToPosition (4);
+		}
 	}
 
 	void AddFood () {
@@ -54,5 +60,13 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds (5.0f);
 	}
 
-
+	void SwitchToPosition (int position) {
+		var lastDudeScript = players[currentCameraPosition].GetComponent<DudeScript>();
+		lastDudeScript.MakeActive (false);
+		cameraObject.transform.parent = players[position].transform;
+		var dudeScript = players[position].GetComponent<DudeScript>();
+		dudeScript.MakeActive (true);
+		cameraObject.transform.localRotation = Quaternion.identity;
+		cameraObject.transform.localPosition = Vector3.zero;
+	}
 }

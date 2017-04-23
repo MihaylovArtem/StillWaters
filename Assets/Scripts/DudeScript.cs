@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class DudeScript : MonoBehaviour {
 	[Range(0, 100)]
@@ -26,6 +27,8 @@ public class DudeScript : MonoBehaviour {
 	private readonly float energyMinusCoef = 1.0f;
 
 	public Status currentStatus;
+
+	public FirstPersonController controllerScript { get { return this.GetComponent <FirstPersonController> ();} }
 
 	// Use this for initialization
 	void Start () {
@@ -110,5 +113,9 @@ public class DudeScript : MonoBehaviour {
 			break;
 		}
 		energy += coef * Time.deltaTime;
+	}
+
+	public void MakeActive(bool active) {
+		controllerScript.enabled = active;
 	}
 }
