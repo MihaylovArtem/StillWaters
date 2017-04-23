@@ -31,6 +31,8 @@ public class DudeScript : MonoBehaviour {
 	private string previousAnimation;
 	public Status currentStatus;
 
+	public RaycastHit whatIHit;
+
 	private FirstPersonController _controllerScript;
 	public  FirstPersonController  controllerScript { 
 		get { 
@@ -54,6 +56,7 @@ public class DudeScript : MonoBehaviour {
 		updateEnergy ();
 		updateFood ();
 		updateWater ();
+		checkInteraction ();
 
 		if (activeControl) {
 			if (Input.GetKey (KeyCode.W)) {
@@ -188,6 +191,12 @@ public class DudeScript : MonoBehaviour {
 		case Status.Sleeping:
 			GameManager.isRelaxing = true;
 			break;
+		}
+	}
+
+	void checkInteraction () {
+		if (Physics.Raycast (this.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
+			//TODO: надпись press "E"
 		}
 	}
 }
