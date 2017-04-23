@@ -38,13 +38,13 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		AddFood ();
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
-			SwitchToPosition (1);
+			SwitchToPosition (0);
 		} else if (Input.GetKeyUp (KeyCode.Alpha2)) {
-			SwitchToPosition (2);
+			SwitchToPosition (1);
 		} else if (Input.GetKeyUp (KeyCode.Alpha3)) {
-			SwitchToPosition (3);
+			SwitchToPosition (2);
 		} else if (Input.GetKeyUp (KeyCode.Alpha4)) {
-			SwitchToPosition (4);
+			SwitchToPosition (3);
 		}
 	}
 
@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour {
 		var dudeScript = players[position].GetComponent<DudeScript>();
 		dudeScript.MakeActive (true);
 		cameraObject.transform.localRotation = Quaternion.identity;
-		cameraObject.transform.localPosition = Vector3.zero;
+		var scale = players [position].transform.localScale.x;
+		cameraObject.transform.localPosition = new Vector3(0, 0.5f/scale, -0.6f/scale);
+		currentCameraPosition = position;
 	}
 }

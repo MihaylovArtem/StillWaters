@@ -13,6 +13,8 @@ public class DudeScript : MonoBehaviour {
 	[Range(0, 100)]
 	public float energy = 100;
 
+	public bool activeControl = false;
+
 	public enum Status {
 		Idle,
 		Fishing,
@@ -40,6 +42,22 @@ public class DudeScript : MonoBehaviour {
 		updateEnergy ();
 		updateFood ();
 		updateWater ();
+
+		if (activeControl) { 
+			if (Input.GetKey (KeyCode.W)) {
+				GetComponent <Animator> ().Play ("walk");
+			} else if (Input.GetKey (KeyCode.S)) {
+				GetComponent <Animator> ().Play ("walk_back");
+			} else if (Input.GetKey (KeyCode.A)) {
+				GetComponent <Animator> ().Play ("walk_left");
+			} else if (Input.GetKey (KeyCode.D)) {
+				GetComponent <Animator> ().Play ("walk_right");
+			} else {
+				GetComponent <Animator> ().Play ("idle");
+			}
+		} else {
+			GetComponent <Animator> ().Play ("idle");
+		}
 	}
 
 	void updateFood () {
@@ -116,6 +134,7 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	public void MakeActive(bool active) {
+		activeControl = true;
 		controllerScript.enabled = active;
 	}
 }
