@@ -141,7 +141,7 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	public void MakeActive(bool active) {
-		activeControl = true;
+		activeControl = active;
 		controllerScript.enabled = active;
 	}
 

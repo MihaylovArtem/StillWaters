@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		SwitchToPosition (0);
 	}
 	
 	// Update is called once per frame
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
 		dudeScript.MakeActive (true);
 		cameraObject.transform.localRotation = Quaternion.identity;
 		var scale = players [position].transform.localScale.x;
-		cameraObject.transform.localPosition = new Vector3(0, 0.5f/scale, -0.6f/scale);
+		cameraObject.transform.localPosition = new Vector3(0, 3.5f, 0.5f);
 		currentCameraPosition = position;
 	}
 
