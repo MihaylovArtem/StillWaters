@@ -1614,7 +1614,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400144, guid: 9cb03c098c20c42bfb2f1e2a817a286c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.442
+      value: -3.614
       objectReference: {fileID: 0}
     - target: {fileID: 400144, guid: 9cb03c098c20c42bfb2f1e2a817a286c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4552,7 +4552,7 @@ MonoBehaviour:
   m_IsWalking: 1
   m_WalkSpeed: 1
   m_RunSpeed: 1
-  m_RunstepLenghten: 1
+  m_RunstepLenghten: 0
   m_JumpSpeed: 0
   m_StickToGroundForce: 1
   m_GravityMultiplier: 1
@@ -4742,7 +4742,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!4 &1858445699
 Transform:

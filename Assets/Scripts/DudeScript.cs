@@ -25,12 +25,18 @@ public class DudeScript : MonoBehaviour {
 		Died
 	} 
 
+	private string currentAnimation;
+	private string previousAnimation;
+
 	private readonly float energyPlusCoef = 1.0f;
 	private readonly float energyMinusCoef = 1.0f;
 
 	public Status currentStatus;
 
 	public FirstPersonController controllerScript { get { return this.GetComponent <FirstPersonController> ();} }
+
+	public Animator anim { get { return this.GetComponent <Animator> (); } }
+
 
 	// Use this for initialization
 	void Start () {
@@ -43,21 +49,22 @@ public class DudeScript : MonoBehaviour {
 		updateFood ();
 		updateWater ();
 
-		if (activeControl) { 
+		if (activeControl) {
 			if (Input.GetKey (KeyCode.W)) {
-				GetComponent <Animator> ().Play ("walk");
+				currentAnimation = "walk";
 			} else if (Input.GetKey (KeyCode.S)) {
-				GetComponent <Animator> ().Play ("walk_back");
+				currentAnimation = "walk_back";
 			} else if (Input.GetKey (KeyCode.A)) {
-				GetComponent <Animator> ().Play ("walk_left");
+				currentAnimation = "walk_left";
 			} else if (Input.GetKey (KeyCode.D)) {
-				GetComponent <Animator> ().Play ("walk_right");
+				currentAnimation = "walk_right";
 			} else {
-				GetComponent <Animator> ().Play ("idle");
+				currentAnimation = "idle";
 			}
 		} else {
-			GetComponent <Animator> ().Play ("idle");
+			currentAnimation = "idle";
 		}
+		anim.Play (currentAnimation);
 	}
 
 	void updateFood () {
