@@ -17,6 +17,6 @@ public class ShipScript : MonoBehaviour {
 	}
 
 	void setSpeed(int numberOfRowers = 0) {
-		shipRigidbody.velocity = new Vector3 (10 * numberOfRowers / GameManager.maxNumberOfRowers, 0, 0);
+		shipRigidbody.velocity = new Vector3 (0, 0, 10 * numberOfRowers / GameManager.maxNumberOfRowers);
 	}
 }

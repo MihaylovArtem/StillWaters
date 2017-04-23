@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DudeScript : MonoBehaviour {
 	[Range(0, 100)]
-	public int water = 100;
+	public float water = 100;
 
 	[Range(0, 100)]
-	public int food = 100;
+	public float food = 100;
 
 	[Range(0, 100)]
-	public int energy = 100;
+	public float energy = 100;
 
 	public enum Status {
 		Idle,
@@ -61,7 +61,7 @@ public class DudeScript : MonoBehaviour {
 			coef = -5.0f * standartCoef;
 			break;
 		}
-		food += (int)(coef * Time.deltaTime);
+		food += coef * Time.deltaTime;
 	}
 
 	void updateWater () {
@@ -86,7 +86,7 @@ public class DudeScript : MonoBehaviour {
 			coef = -5.0f * standartCoef;
 			break;
 		}
-		water += (int)(coef * Time.deltaTime);
+		water += coef * Time.deltaTime;
 	}
 
 	void updateEnergy () {
@@ -109,6 +109,6 @@ public class DudeScript : MonoBehaviour {
 			coef = -5.0f * standartCoef;
 			break;
 		}
-		energy += (int)(coef * Time.deltaTime);
+		energy += coef * Time.deltaTime;
 	}
 }
