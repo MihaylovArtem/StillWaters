@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,16 +11,19 @@ public class GameManager : MonoBehaviour {
 
 	public int currentCameraPosition;
 
-	public static int foodUnits;
+	public int foodUnits;
 	public static readonly int maxFoodUnits = 15;
 
-	public static int waterUnits;
+	public int waterUnits;
 	public static readonly int maxWaterUnits = 10;
 
-	public static int numberOfRowers;
-	public static readonly int maxNumberOfRowers = 2;
-
 	public static bool isFishing;
+	public static bool isRelaxing;
+	public static bool isRowingLeft;
+	public static bool isRowingRight;
+
+	public Text foodText;
+	public Text waterText;
 
 	public enum GameState {
 		MainMenu,
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		AddFood ();
+		updateFoodAndWater ();
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SwitchToPosition (0);
 		} else if (Input.GetKeyUp (KeyCode.Alpha2)) {
@@ -70,5 +75,10 @@ public class GameManager : MonoBehaviour {
 		var scale = players [position].transform.localScale.x;
 		cameraObject.transform.localPosition = new Vector3(0, 0.5f/scale, -0.6f/scale);
 		currentCameraPosition = position;
+	}
+
+	void updateFoodAndWater() {
+		foodText.text = "x" + foodUnits.ToString ();
+		waterText.text = "x" + waterUnits.ToString ();
 	}
 }
