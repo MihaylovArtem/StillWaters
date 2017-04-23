@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour {
 
 	public int currentCameraPosition;
 
-	public int foodUnits;
+	public static int foodUnits;
 	public static readonly int maxFoodUnits = 15;
 
-	public int waterUnits;
+	public static int waterUnits;
 	public static readonly int maxWaterUnits = 10;
 
 	public static bool isFishing;

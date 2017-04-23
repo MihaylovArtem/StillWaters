@@ -78,9 +78,11 @@ public class DudeScript : MonoBehaviour {
 		float coef = 0.0f;
 		switch (currentStatus) {
 		case Status.Fishing:
-		case Status.Idle:
 		case Status.Died:
 			coef = 0.0f * standartCoef;
+			break;
+		case Status.Idle:
+			coef = 0.3f * standartCoef;
 			break;
 		case Status.Sleeping:
 			coef = 0.5f * standartCoef;
