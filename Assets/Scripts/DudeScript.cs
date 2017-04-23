@@ -6,12 +6,15 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class DudeScript : MonoBehaviour {
 	[Range(0, 100)]
 	public float water = 100;
+	public static readonly float maxWater = 100;
 
 	[Range(0, 100)]
 	public float food = 100;
+	public static readonly float maxFood = 100;
 
 	[Range(0, 100)]
 	public float energy = 100;
+	public static readonly float maxEnergy = 100;
 
 	public bool activeControl = false;
 
@@ -24,9 +27,6 @@ public class DudeScript : MonoBehaviour {
 		Rowing,
 		Died
 	} 
-
-	private readonly float energyPlusCoef = 1.0f;
-	private readonly float energyMinusCoef = 1.0f;
 
 	public Status currentStatus;
 
