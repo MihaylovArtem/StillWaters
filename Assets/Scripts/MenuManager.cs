@@ -1,12 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
 
+	public Text highscore;
+
 	// Use this for initialization
 	void Start () {
-		
+		UnityEngine.Cursor.visible = true;
+		if (!PlayerPrefs.HasKey ("HighscoreCompleted")) {
+			highscore.text = "";
+		} else {
+			highscore.text = "Highscore: " + PlayerPrefs.GetInt ("HighscoreCompleted") + "%";
+		}
+		if (PlayerPrefs.HasKey ("PeopleAlive")) {
+			highscore.text = "Highscore: " + PlayerPrefs.GetInt ("PeopleAlive") + " people alive";
+		}
 	}
 	
 	// Update is called once per frame

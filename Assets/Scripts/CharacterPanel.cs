@@ -23,9 +23,11 @@ public class CharacterPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		updateStatus ();
-		updateEnergyColor ();
-		updateFoodColor ();
-		updateWaterColor ();
+		if (GameManager.gameState != GameManager.GameState.GameOver) {
+			updateEnergyColor ();
+			updateFoodColor ();
+			updateWaterColor ();
+		}
 	}
 
 	void updateStatus () {
@@ -56,6 +58,7 @@ public class CharacterPanel : MonoBehaviour {
 	}
 
 	void updateFoodColor () {
+		
 		var food = dude.food;
 		var alpha = food > DudeScript.maxFood / 4f * 3f ? 0f : (DudeScript.maxFood - food) / (DudeScript.maxFood / 4f);
 		var red = (food <= DudeScript.maxFood / 2) ? 1.0f : (DudeScript.maxFood - food) / (DudeScript.maxFood / 2);

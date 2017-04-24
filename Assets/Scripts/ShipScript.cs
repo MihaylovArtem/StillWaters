@@ -16,7 +16,9 @@ public class ShipScript : MonoBehaviour {
 	}
 
 	void setSpeed () {
-		var speedMultiplier = (Convert.ToInt32 (GameManager.isRowingLeft) + Convert.ToInt32 (GameManager.isRowingRight));
-		transform.Translate (new Vector3(1,0,0) * Time.deltaTime * speedMultiplier);
+		if (GameManager.gameState != GameManager.GameState.GameOver) {
+			var speedMultiplier = (Convert.ToInt32 (GameManager.isRowingLeft) + Convert.ToInt32 (GameManager.isRowingRight));
+			transform.Translate (new Vector3 (1, 0, 0) * Time.deltaTime * speedMultiplier);
+		}
 	}
 }

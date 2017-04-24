@@ -19,10 +19,15 @@ public class DudeScript : MonoBehaviour {
 
 	public bool activeControl = false;
 
-	private string[] thoughts = new string[15] {"What a great day!", "Does anyone else hear this song?", "Yummi, fish again!", 
+	private string[] thoughts = new string[30] {"What a great day!", "Does anyone else hear this song?", "Yummi, fish again!", 
 		"* whistling*", "Let's make a pool-party!", "Did I turn off the iron?!", "Is the water warm?..", "Hmm... How did I get here?", 
 		"Sh*t! I's a hockey match today!", "Bazinga!", "I wanna coffee...", "Yo ho ho and a bottle of rum!", 
-		"Столица, водка, советский медведь наш!", "Tequila to all at my expense", "*Burp*"};
+		"Столица, водка, советский медведь наш!", "Tequila to all at my expense", "*Burp*", "I'm a king the world!",
+		"It seems it was 5 of us at the begining", "Oh no, sniper is pudge!!!", "LOOK! IT'S SHARK! Lol, just kidding.", 
+		"I get it, it\'s a TV-show, right?", "It feels like I was attacked by bears in the dark", "AARGH", 
+		"Ok, google, how to fishing?", "Does anyone see my poisonous snake?", 
+		"*Croon*", "*Hic*", "I should shave", " I don't want to eat this fish, she is too cute!", 
+		"Is someone vegetarians there?", " Cool, I'm like Robinzone!"};
 	public Text thoughtText;
 	public GameObject thoughtPanel;
 
@@ -237,30 +242,45 @@ public class DudeScript : MonoBehaviour {
 
 	void checkInteraction () {
 		if (activeControl) {
-			if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
-				if (Input.GetKeyUp (KeyCode.E)) {
-					if (currentStatus != Status.Idle) {
-						applyStatus (Status.Idle);
-					} else {
-						switch (whatIHit.collider.gameObject.tag) {
-						case "FishingObject":
-							applyStatus (Status.Fishing);
-							break;
-						case "RelaxObject":
-							applyStatus (Status.Sleeping);
-							break;
-						case "FoodObject":
-							eat ();
-							break;
-						case "WaterObject":
-							drink ();
-							break;
-						case "LeftPaddle":
-							applyStatus (Status.RowingLeft);
-							break;
-						case "RightPaddle":
-							applyStatus (Status.RowingRight);
-							break;
+			if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out whatIHit, 0.8f) && activeControl) {
+				if (whatIHit.collider.gameObject.tag == "FishingObject" || whatIHit.collider.gameObject.tag == "RelaxObject" ||
+					whatIHit.collider.gameObject.tag == "FoodObject" || whatIHit.collider.gameObject.tag == "WaterObject" ||
+					whatIHit.collider.gameObject.tag == "LeftPaddle" || whatIHit.collider.gameObject.tag == "RightPaddle") {
+					var objectScript = whatIHit.collider.gameObject.GetComponent<ObjectScript> ();
+					if (objectScript.dude == null || objectScript.dude == this.gameObject) {
+						objectScript.isVisisble = true;
+					}
+					Debug.Log ("Seeing something!");
+					if (Input.GetKeyUp (KeyCode.E)) {
+						if (currentStatus != Status.Idle) {
+							applyStatus (Status.Idle);
+							objectScript.dude = null;
+						} else {
+							if (objectScript.dude == null) {
+								if (whatIHit.collider.gameObject.tag != "FoodObject" && whatIHit.collider.gameObject.tag != "WaterObject") {
+									objectScript.dude = this.gameObject;
+								}
+							}
+							switch (whatIHit.collider.gameObject.tag) {
+							case "FishingObject":
+								applyStatus (Status.Fishing);
+								break;
+							case "RelaxObject":
+								applyStatus (Status.Sleeping);
+								break;
+							case "FoodObject":
+								eat ();
+								break;
+							case "WaterObject":
+								drink ();
+								break;
+							case "LeftPaddle":
+								applyStatus (Status.RowingLeft);
+								break;
+							case "RightPaddle":
+								applyStatus (Status.RowingRight);
+								break;
+							}
 						}
 					}
 				}
@@ -314,11 +334,13 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void checkValues () {
-		if (water <= 0 || food <= 0 || energy <= 0) {
+		if ((water <= 0 || food <= 0 || energy <= 0) && currentStatus != Status.Died) {
 			var newRotation = new Quaternion ();
 			newRotation.eulerAngles = new Vector3 (-90f, 0f, 0f);
 			this.transform.rotation = newRotation;
+			cancelStatus (currentStatus);
 			gameManager.killPersonAndAssignRandom (this.gameObject);
+			source.PlayOneShot (deathSound);
 		}
 	}
 
