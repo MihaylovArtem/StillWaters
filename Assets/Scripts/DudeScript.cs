@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class DudeScript : MonoBehaviour {
@@ -19,6 +20,8 @@ public class DudeScript : MonoBehaviour {
 	public bool activeControl = false;
 
 	private string[] thoughts = new string[2] {"Hate being in the ocean", "Wow, what a view"};
+	public Text thoughtText;
+	public GameObject thoughtPanel;
 
 	public enum Status {
 		Idle,
@@ -215,11 +218,18 @@ public class DudeScript : MonoBehaviour {
 		}
 	}
 
-	IEnumerable sayRandomThought() {
+	void sayRandomThought() {
+		thoughtPanel.SetActive (true);
 		if (currentStatus != Status.Died) {
 			int index = Random.Range(0, thoughts.Length);
 			var thought = thoughts [index];
+//			thoughtPanel
 		}
+//		Invoke ("hideThought", 3f);
+	}
+
+	void hideThoughtPanel() {
+		thoughtPanel.SetActive (false);
 	}
 
 	void OnTriggerEnter(Collider other) {

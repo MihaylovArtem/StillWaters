@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour {
 
 	public static bool isFishing;
 	public static bool isRelaxing;
-	public static bool isRowingLeft;
-	public static bool isRowingRight;
+	public static bool isRowingLeft = true;
+	public static bool isRowingRight = true;
 
 	public Text foodText;
 	public Text waterText;
