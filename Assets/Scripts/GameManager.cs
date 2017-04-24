@@ -88,6 +88,14 @@ public class GameManager : MonoBehaviour {
 		} else if (Input.GetKeyUp (KeyCode.Alpha4)) {
 			SwitchToPosition (3);
 		}
+		if (gameState == GameState.GameOver) {
+
+			cameraObject.transform.parent = ship.transform;
+			var rotation = Quaternion.identity;
+			rotation.eulerAngles = new Vector3 (0, 92, 0);
+			cameraObject.transform.localRotation = rotation;
+			cameraObject.transform.localPosition = new Vector3 (-4f, 0.8f, -2.6f);
+		}
 	}
 
 	IEnumerator addFoodCycle() {
@@ -112,9 +120,8 @@ public class GameManager : MonoBehaviour {
 				currentCameraPosition = position;
 			}
 		} else {
-			cameraObject.transform.parent = ship.transform;
-			cameraObject.transform.localRotation = Quaternion.identity;
-			cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 1f);
+			var lastDudeScript = players [currentCameraPosition].GetComponent<DudeScript> ();
+			lastDudeScript.MakeActive (false);
 		}
 	}
 

@@ -9,7 +9,6 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		UnityEngine.Cursor.visible = true;
 		if (!PlayerPrefs.HasKey ("HighscoreCompleted")) {
 			highscore.text = "";
 		} else {
@@ -22,7 +21,8 @@ public class MenuManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		UnityEngine.Cursor.lockState = CursorLockMode.Confined;
+		UnityEngine.Cursor.visible = true;
 	}
 
 	public void StartGame() {
