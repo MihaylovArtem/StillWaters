@@ -312,7 +312,7 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void eat() {
-		if (GameManager.foodUnits < 0) {
+		if (GameManager.foodUnits <= 0) {
 			return;
 		}
 		source.PlayOneShot (eatSound);
@@ -321,7 +321,7 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void drink() {
-		if (GameManager.waterUnits < 0) {
+		if (GameManager.waterUnits <= 0) {
 			return;
 		}
 		source.PlayOneShot (drinkSound);
