@@ -175,6 +175,7 @@ public class DudeScript : MonoBehaviour {
 	private void cancelStatus(Status status) {
 		switch (status) {
 		case Status.Died:
+			return;
 		case Status.Idle:
 			break;
 		case Status.Fishing:
@@ -190,27 +191,47 @@ public class DudeScript : MonoBehaviour {
 			GameManager.isRelaxing = false;
 			break;
 		}
+		currentStatus = Status.Idle;
 	}
 
 	public void applyStatus(Status status) {
 		cancelStatus (currentStatus);
-		currentStatus = status;
+		bool canChangeStatus = true;
 		switch (status) {
 		case Status.Died:
 		case Status.Idle:
 			break;
 		case Status.Fishing:
-			GameManager.isFishing = true;
+			if (GameManager.isFishing) {
+				canChangeStatus = false;
+			} else {
+				GameManager.isFishing = true;
+			}
 			break;
 		case Status.RowingLeft:
-			GameManager.isRowingLeft = true;
+			if (GameManager.isRowingLeft) {
+				canChangeStatus = false;
+			} else {
+				GameManager.isRowingLeft = true;
+			}
 			break;
 		case Status.RowingRight:
-			GameManager.isRowingRight = true;
+			if (GameManager.isRowingRight) {
+				canChangeStatus = false;
+			} else {
+				GameManager.isRowingRight = true;
+			}
 			break;
 		case Status.Sleeping:
-			GameManager.isRelaxing = true;
+			if (GameManager.isRelaxing) {
+				canChangeStatus = false;
+			} else {
+				GameManager.isRelaxing = true;
+			}
 			break;
+		}
+		if (canChangeStatus) {
+			currentStatus = status;
 		}
 	}
 
@@ -271,15 +292,21 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void eat() {
+		if (GameManager.foodUnits < 0) {
+			return;
+		}
 		source.PlayOneShot (eatSound);
 		food = Mathf.Max (food + 50, maxFood);
-		GameManager.foodUnits = Mathf.Max (GameManager.foodUnits - 1, 0);
+		GameManager.foodUnits--;
 	}
 
 	void drink() {
+		if (GameManager.waterUnits < 0) {
+			return;
+		}
 		source.PlayOneShot (drinkSound);
 		water = Mathf.Max (water + 50, maxWater);
-		GameManager.waterUnits = Mathf.Max (GameManager.waterUnits - 1, 0);
+		GameManager.waterUnits--;
 	}
 
 	void hideThoughtPanel() {
