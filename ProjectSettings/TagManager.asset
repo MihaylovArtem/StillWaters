@@ -9,6 +9,8 @@ TagManager:
   - FoodObject
   - RelaxObject
   - WaterPlane
+  - LeftPaddle
+  - RightPaddle
   layers:
   - Default
   - TransparentFX

@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour {
 	public static int waterUnits;
 	public static readonly int maxWaterUnits = 10;
 
-	public static bool isFishing;
-	public static bool isRelaxing;
-	public static bool isRowingLeft = true;
-	public static bool isRowingRight = true;
+	public static bool isFishing = false;
+	public static bool isRelaxing = false;
+	public static bool isRowingLeft = false;
+	public static bool isRowingRight = false;
 
 	public Text dayText;
 	public Text descriptionText;
@@ -147,11 +147,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void killPersonAndAssignRandom(GameObject whoToKill) {
-		foreach (GameObject player in players) {
-			var dudeScript = player.GetComponent <DudeScript> ();
-			if (dudeScript.currentStatus != DudeScript.Status.Died && player != whoToKill) {
-				SwitchToPosition (dudeScript.dudeIndex);
-				break;
+		if (whoToKill == players [currentCameraPosition]) {
+			foreach (GameObject player in players) {
+				var dudeScript = player.GetComponent <DudeScript> ();
+				if (dudeScript.currentStatus != DudeScript.Status.Died && player != whoToKill) {
+					SwitchToPosition (dudeScript.dudeIndex);
+					break;
+				}
 			}
 		}
 		whoToKill.GetComponent <DudeScript>().applyStatus (DudeScript.Status.Died);

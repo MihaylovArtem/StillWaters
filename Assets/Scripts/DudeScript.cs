@@ -44,6 +44,8 @@ public class DudeScript : MonoBehaviour {
 	private AudioSource source { get { return GetComponent<AudioSource> (); } }
 	public AudioClip deathSound;
 	public AudioClip sighSound;
+	public AudioClip eatSound;
+	public AudioClip drinkSound;
 	public int dudeIndex;
 
 
@@ -73,8 +75,9 @@ public class DudeScript : MonoBehaviour {
 		updateFood ();
 		updateWater ();
 		checkInteraction ();
+		checkValues ();
 
-		controllerScript.enabled = (currentStatus == Status.Idle && activeControl);
+		controllerScript.m_WalkSpeed = (currentStatus == Status.Idle && activeControl) ? 1 : 0;
 		if (activeControl && currentStatus == Status.Idle) {
 			if (Input.GetKey (KeyCode.W)) {
 				currentAnimation = "walk";
@@ -213,14 +216,13 @@ public class DudeScript : MonoBehaviour {
 
 	void checkInteraction () {
 		if (activeControl) {
-			if (Physics.Raycast (this.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
+			if (Physics.Raycast (Camera.main.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
 				if (Input.GetKeyUp (KeyCode.E)) {
 					if (currentStatus != Status.Idle) {
 						applyStatus (Status.Idle);
 					} else {
 						switch (whatIHit.collider.gameObject.tag) {
 						case "FishingObject":
-							Debug.Log ("fishing!!!!!!!!!!!!!!");
 							applyStatus (Status.Fishing);
 							break;
 						case "RelaxObject":
@@ -232,8 +234,18 @@ public class DudeScript : MonoBehaviour {
 						case "WaterObject":
 							drink ();
 							break;
+						case "LeftPaddle":
+							applyStatus (Status.RowingLeft);
+							break;
+						case "RightPaddle":
+							applyStatus (Status.RowingRight);
+							break;
 						}
 					}
+				}
+			} else if (Input.GetKeyUp (KeyCode.E)) {
+				if (currentStatus != Status.Idle) {
+					applyStatus (Status.Idle);
 				}
 			}
 		}
@@ -247,25 +259,25 @@ public class DudeScript : MonoBehaviour {
 			var waitTime = Random.Range (20f, 70f);
 			yield return new WaitForSeconds(waitTime);
 
-			source.PlayOneShot (sighSound);
-			thoughtPanel.SetActive (true);
 			if (currentStatus != Status.Died && !activeControl) {
+				source.PlayOneShot (sighSound);
+				thoughtPanel.SetActive (true);
 				int index = Random.Range(0, thoughts.Length);
 				var thought = thoughts [index];
 				thoughtText.text = thought;
+				Invoke ("hideThoughtPanel", 8.0f);
 			}
-			Invoke ("hideThoughtPanel", 8.0f);
 		}
 	}
 
 	void eat() {
-		//TODO: sounds
+		source.PlayOneShot (eatSound);
 		food = Mathf.Max (food + 50, maxFood);
 		GameManager.foodUnits = Mathf.Max (GameManager.foodUnits - 1, 0);
 	}
 
 	void drink() {
-		//TODO: sounds
+		source.PlayOneShot (drinkSound);
 		water = Mathf.Max (water + 50, maxWater);
 		GameManager.waterUnits = Mathf.Max (GameManager.waterUnits - 1, 0);
 	}
@@ -276,7 +288,10 @@ public class DudeScript : MonoBehaviour {
 
 	void checkValues () {
 		if (water <= 0 || food <= 0 || energy <= 0) {
-			applyStatus (Status.Died);
+			var newRotation = new Quaternion ();
+			newRotation.eulerAngles = new Vector3 (-90f, 0f, 0f);
+			this.transform.rotation = newRotation;
+			gameManager.killPersonAndAssignRandom (this.gameObject);
 		}
 	}
 

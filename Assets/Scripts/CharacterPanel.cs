@@ -33,6 +33,26 @@ public class CharacterPanel : MonoBehaviour {
 		if (dude.currentStatus == DudeScript.Status.Died) {
 			panelBack.color = deadColor;
 		}
+		var text = "";
+		switch (dude.currentStatus) {
+		case DudeScript.Status.Fishing:
+			text = "Fishing...";
+			break;
+		case DudeScript.Status.RowingLeft:
+		case DudeScript.Status.RowingRight:
+			text = "Rowing...";
+			break;
+		case DudeScript.Status.Sleeping:
+			text = "Resting...";
+			break;
+		case DudeScript.Status.Idle:
+			text = "Not busy";
+			break;
+		case DudeScript.Status.Died:
+			text = "Dead";
+			break;
+		}
+		status.text = text;
 	}
 
 	void updateFoodColor () {
