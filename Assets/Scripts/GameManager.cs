@@ -31,7 +31,13 @@ public class GameManager : MonoBehaviour {
 	public Text descriptionText;
 	public Text foodText;
 	public Text waterText;
+	public Text tutorialText;
+	public Image tutorialPanel;
 	public TimeOfDayManager timeManager;
+	public float tutorialTimer;
+	public int currentTutorialStep;
+	public string[] tutorialStrings = new string[4] {"You are starting your journey\nYour goal is to reach the island by using paddles.", "Survive in this small world by controlling your hunger, thirst and tiredness", "Control it by interacting with the objects by pressing E", "Switch between characters by pressing 1, 2, 3, 4 numbers"};
+
 
 	private int dayCount = 0;
 	private int nightCount = 0;
@@ -61,6 +67,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		updateFoodAndWater ();
 		updateDayCounter ();
+		updateTutorial ();
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SwitchToPosition (0);
 		} else if (Input.GetKeyUp (KeyCode.Alpha2)) {
@@ -144,6 +151,23 @@ public class GameManager : MonoBehaviour {
 		int percent = (int)Math.Floor((1 - (distanceToTarget / overallDistance))*100.0);
 		descriptionText.text = "You completed " + percent.ToString ("D") + "% of your journey";
 
+	}
+
+	void updateTutorial() {
+		if (currentTutorialStep < tutorialStrings.Length) {
+			tutorialTimer += Time.deltaTime;
+			if (tutorialTimer < 1) {
+				tutorialText.color = new Color (0, 0, 0, tutorialTimer);
+				tutorialPanel.color = new Color (1, 1, 1, tutorialTimer * 0.4f);
+			} else if (tutorialTimer > 5 && tutorialTimer < 6) {
+				tutorialText.color = new Color (0, 0, 0, 6 - tutorialTimer);
+				tutorialPanel.color = new Color (1, 1, 1, (6 - tutorialTimer) * 0.4f);
+			} else if (tutorialTimer > 6) {
+				tutorialTimer = 0.0f;
+				currentTutorialStep++;
+			}
+			tutorialText.text = tutorialStrings [currentTutorialStep];
+		}
 	}
 
 	public void killPersonAndAssignRandom(GameObject whoToKill) {
