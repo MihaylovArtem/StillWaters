@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.5955882, g: 0.55807704, b: 0.47734642, a: 1}
+  m_AmbientEquatorColor: {r: 0.4705882, g: 0.4705882, b: 0.4705882, a: 1}
+  m_AmbientGroundColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 2100000, guid: aeda7ac675715a848bb1d07b7fbaa714, type: 2}
@@ -1755,7 +1755,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: a6fb1d74a3057433e92943b59df791a0,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 5bd6080d9b46246cd9f56e0710e91d9b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9dd662cb7836f4fd7b39ce1e59a7566c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2104,8 +2104,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   m_AmbientMode: 1
-  useAmbientSkyColorGradient: 1
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientSkyColorGradient: 0
+  m_AmbientSkyColor: {r: 0.5955882, g: 0.55807704, b: 0.47734642, a: 1}
   ambientSkyColorGradient:
     key0:
       serializedVersion: 2
@@ -2150,8 +2150,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  useAmbientEquatorColorGradient: 1
-  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientEquatorColorGradient: 0
+  m_AmbientEquatorColor: {r: 0.4705882, g: 0.4705882, b: 0.4705882, a: 1}
   ambientEquatorColorGradient:
     key0:
       serializedVersion: 2
@@ -2196,8 +2196,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  useAmbientGroundColorGradient: 1
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientGroundColorGradient: 0
+  m_AmbientGroundColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
   ambientGroundColorGradient:
     key0:
       serializedVersion: 2
@@ -3148,7 +3148,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 0669bb43ea1ef40e9a197e4298e069ca,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: e890791f5ed154e80a8ba338723d1464, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 31152fa1b32c443feab343e774b37d1b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

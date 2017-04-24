@@ -27,6 +27,8 @@ public class AudioScript : MonoBehaviour {
 			ratio = (19.0f - timeManager.timeline);
 		}
 		dayMusic.volume = ratio;
-		nightMusic.volume = 1f - ratio;
+
+		nightMusic.volume = (1f - ratio)*0.7f; // night music is louder :D
+		Debug.Log (ratio + " " + nightMusic.volume);
 	}
 }

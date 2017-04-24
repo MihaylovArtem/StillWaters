@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.59607846, g: 0.5568628, b: 0.47843137, a: 1}
+  m_AmbientEquatorColor: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
+  m_AmbientGroundColor: {r: 0.30882353, g: 0.30882353, b: 0.30882353, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 2100000, guid: aeda7ac675715a848bb1d07b7fbaa714, type: 2}
@@ -1609,8 +1609,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   m_AmbientMode: 1
-  useAmbientSkyColorGradient: 1
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientSkyColorGradient: 0
+  m_AmbientSkyColor: {r: 0.59607846, g: 0.5568628, b: 0.47843137, a: 1}
   ambientSkyColorGradient:
     key0:
       serializedVersion: 2
@@ -1655,8 +1655,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  useAmbientEquatorColorGradient: 1
-  m_AmbientEquatorColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientEquatorColorGradient: 0
+  m_AmbientEquatorColor: {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 1}
   ambientEquatorColorGradient:
     key0:
       serializedVersion: 2
@@ -1701,8 +1701,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  useAmbientGroundColorGradient: 1
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  useAmbientGroundColorGradient: 0
+  m_AmbientGroundColor: {r: 0.30882353, g: 0.30882353, b: 0.30882353, a: 1}
   ambientGroundColorGradient:
     key0:
       serializedVersion: 2
