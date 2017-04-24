@@ -1056,8 +1056,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Made by Artem Mihaylov and Ivan Volkov \nfor Ludum Dare 38\nMusic by Galina
-    Volkova"
+  m_Text: "Developed by Artem Mihaylov and Ivan Volkov \nfor Ludum Dare 38\nMusic
+    by Galina Volkova"
 --- !u!222 &998610756
 CanvasRenderer:
   m_ObjectHideFlags: 0
