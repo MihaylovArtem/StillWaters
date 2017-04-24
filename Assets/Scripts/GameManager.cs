@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using AC.TimeOfDaySystemFree;
+using System;
 
 
 public class GameManager : MonoBehaviour {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	public Camera cameraObject;
 
 	public GameObject[] players;
+	public GameObject ship;
+	public GameObject targetObject;
 
 	public int currentCameraPosition;
 
@@ -33,6 +36,8 @@ public class GameManager : MonoBehaviour {
 	private int dayCount = 0;
 	private int nightCount = 0;
 	private bool countChanged = false;
+	public Vector3 startingVector;
+	private float overallDistance = 0f;
 
 	public enum GameState {
 		MainMenu,
@@ -48,6 +53,8 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine (addFoodCycle ());
 		foodUnits = maxFoodUnits;
 		waterUnits = maxWaterUnits;
+		startingVector = ship.transform.position;
+		overallDistance = Vector3.Distance (startingVector, targetObject.transform.position);
 	}
 	
 	// Update is called once per frame
@@ -108,23 +115,35 @@ public class GameManager : MonoBehaviour {
 		}
 		if (timeManager.timeline > 6 && timeManager.timeline < 7) {
 			dayText.color = new Color (0, 0, 0, timeManager.timeline - 6);
+			descriptionText.color = new Color (0, 0, 0, timeManager.timeline - 6);
 			dayText.text = "Day " + dayCount.ToString ();
 		} else if (timeManager.timeline > 7.5f && timeManager.timeline < 8.5f) {
 			dayText.color = new Color (0, 0, 0, 8.5f - timeManager.timeline);
+			descriptionText.color = new Color (0, 0, 0, 8.5f - timeManager.timeline);
 			dayText.text = "Day " + dayCount.ToString ();
 		} else if (timeManager.timeline > 17 && timeManager.timeline < 18) {
 			dayText.color = new Color (0, 0, 0, timeManager.timeline - 17);
+			descriptionText.color = new Color (0, 0, 0, timeManager.timeline - 17);
 			dayText.text = "Night " + nightCount.ToString ();
 		} else if (timeManager.timeline > 18.5f && timeManager.timeline < 19.5f) {
 			dayText.color = new Color (0, 0, 0, 19.5f - timeManager.timeline);
+			descriptionText.color = new Color (0, 0, 0, 19.5f - timeManager.timeline);
 			dayText.text = "Night " + nightCount.ToString ();
 		} else if (timeManager.timeline >= 18 && timeManager.timeline <= 18.5f) {
 			dayText.color = new Color (0, 0, 0, 1);
+			descriptionText.color = new Color (0, 0, 0, 1);
 		} else if (timeManager.timeline >= 7 && timeManager.timeline <= 7.5f) {
 			dayText.color = new Color (0, 0, 0, 1);
+			descriptionText.color = new Color (0, 0, 0, 1);
 		} else {
 			dayText.color = new Color (0, 0, 0, 0);
+			descriptionText.color = new Color (0, 0, 0, 0);
 		}
+
+		float distanceToTarget = Vector3.Distance(targetObject.transform.position, ship.transform.position);
+		int percent = (int)Math.Floor((1 - (distanceToTarget / overallDistance))*100.0);
+		descriptionText.text = "You completed " + percent.ToString ("D") + "% of your journey";
+
 	}
 
 	public void killPersonAndAssignRandom(GameObject whoToKill) {

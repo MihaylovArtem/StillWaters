@@ -46,6 +46,7 @@ public class DudeScript : MonoBehaviour {
 	public AudioClip sighSound;
 	public int dudeIndex;
 
+
 	private FirstPersonController _controllerScript;
 	public  FirstPersonController  controllerScript { 
 		get { 
