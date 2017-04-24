@@ -108,13 +108,13 @@ public class GameManager : MonoBehaviour {
 				var dudeScript = players [position].GetComponent<DudeScript> ();
 				dudeScript.MakeActive (true);
 				cameraObject.transform.localRotation = Quaternion.identity;
-				cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 0.5f);
+				cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 1f);
 				currentCameraPosition = position;
 			}
 		} else {
 			cameraObject.transform.parent = ship.transform;
 			cameraObject.transform.localRotation = Quaternion.identity;
-			cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 0.5f);
+			cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 1f);
 		}
 	}
 
