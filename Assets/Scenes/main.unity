@@ -518,6 +518,16 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 4.77
       objectReference: {fileID: 0}
+    - target: {fileID: 114041106033701056, guid: f8d747b8c44734dc7bd8be2a8b95b1bc,
+        type: 2}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f3dbb673a79764f77b2c55267115a159, type: 3}
+    - target: {fileID: 114376369926324010, guid: f8d747b8c44734dc7bd8be2a8b95b1bc,
+        type: 2}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f3dbb673a79764f77b2c55267115a159, type: 3}
     m_RemovedComponents:
     - {fileID: 64433330330569042, guid: f8d747b8c44734dc7bd8be2a8b95b1bc, type: 2}
     - {fileID: 65181320282838850, guid: f8d747b8c44734dc7bd8be2a8b95b1bc, type: 2}
@@ -4129,6 +4139,13 @@ Prefab:
       propertyPath: m_Text
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114883724329379226, guid: 5fadcbacacf3e4bd3a2e986b2e417e0d,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Greg
+
+'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fadcbacacf3e4bd3a2e986b2e417e0d, type: 2}
   m_IsPrefabParent: 0
@@ -4304,7 +4321,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 595a4a1a5e6fc484f8a47eaace1384d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 149
+      value: 2025
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 595a4a1a5e6fc484f8a47eaace1384d0, type: 3}
       propertyPath: m_LocalRotation.x

@@ -3255,7 +3255,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Still waters...
+  m_Text: Still Waters...
 --- !u!222 &1946132322
 CanvasRenderer:
   m_ObjectHideFlags: 0

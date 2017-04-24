@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour {
 	public int currentCameraPosition;
 
 	public static int foodUnits;
-	public static readonly int maxFoodUnits = 15;
+	public static readonly int maxFoodUnits = 10;
 
 	public static int waterUnits;
-	public static readonly int maxWaterUnits = 10;
+	public static readonly int maxWaterUnits = 16;
 
 	public static bool isFishing = false;
 	public static bool isRelaxing = false;
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
 		deadDudes = 0;
 		SwitchToPosition (0);
 		StartCoroutine (addFoodCycle ());
-		foodUnits = maxFoodUnits;
+		foodUnits = 4;
 		waterUnits = maxWaterUnits;
 		startingVector = ship.transform.position;
 		overallDistance = Vector3.Distance (startingVector, targetObject.transform.position);
@@ -234,6 +234,5 @@ public class GameManager : MonoBehaviour {
 		}
 		whoToKill.GetComponent <DudeScript>().applyStatus (DudeScript.Status.Died);
 		deadDudes++;
-		Debug.Log ("Dead:" + deadDudes);
 	}
 }

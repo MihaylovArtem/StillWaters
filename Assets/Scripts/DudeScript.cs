@@ -347,6 +347,7 @@ public class DudeScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "WaterPlane") {
 			gameManager.killPersonAndAssignRandom (this.gameObject);
+			whoToKill.transform.position = new Vector3 (0, -1000, 0);
 			source.PlayOneShot (deathSound);
 		}
 	}
