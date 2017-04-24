@@ -67,7 +67,8 @@ public class DudeScript : MonoBehaviour {
 		updateWater ();
 		checkInteraction ();
 
-		if (activeControl) {
+		controllerScript.enabled = (currentStatus == Status.Idle && activeControl);
+		if (activeControl && currentStatus == Status.Idle) {
 			if (Input.GetKey (KeyCode.W)) {
 				currentAnimation = "walk";
 			} else if (Input.GetKey (KeyCode.S)) {
@@ -104,7 +105,7 @@ public class DudeScript : MonoBehaviour {
 			coef = 2.0f * standartCoef;
 			break;
 		}
-		food += coef * Time.deltaTime;
+		food = Mathf.Max (food + coef * Time.deltaTime, 0);
 	}
 
 	void updateWater () {
@@ -158,7 +159,6 @@ public class DudeScript : MonoBehaviour {
 		if (currentStatus == Status.Died) {
 			return;
 		}
-		cancelStatus (currentStatus);
 		applyStatus (status);
 	}
 
@@ -183,6 +183,7 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	public void applyStatus(Status status) {
+		cancelStatus (currentStatus);
 		currentStatus = status;
 		switch (status) {
 		case Status.Died:
@@ -206,16 +207,41 @@ public class DudeScript : MonoBehaviour {
 	void checkInteraction () {
 		if (activeControl) {
 			if (Physics.Raycast (this.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
-				//TODO: надпись press "E"
 				if (Input.GetKeyUp (KeyCode.E)) {
 					if (currentStatus != Status.Idle) {
 						applyStatus (Status.Idle);
 					} else {
-						//TODO: добавить занятия
+						switch (whatIHit.collider.gameObject.tag) {
+						case "FishingObject":
+							Debug.Log ("fishing!!!!!!!!!!!!!!");
+							applyStatus (Status.Fishing);
+							break;
+						case "RelaxObject":
+							applyStatus (Status.Sleeping);
+							break;
+						case "FoodObject":
+							eat ();
+							break;
+						case "WaterObject":
+							drink ();
+							break;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	void eat() {
+		//TODO: sounds
+		food = Mathf.Max (food + 50, maxFood);
+		GameManager.foodUnits = Mathf.Max (GameManager.foodUnits - 1, 0);
+	}
+
+	void drink() {
+		//TODO: sounds
+		water = Mathf.Max (water + 50, maxWater);
+		GameManager.waterUnits = Mathf.Max (GameManager.waterUnits - 1, 0);
 	}
 
 	void sayRandomThought() {
@@ -230,6 +256,12 @@ public class DudeScript : MonoBehaviour {
 
 	void hideThoughtPanel() {
 		thoughtPanel.SetActive (false);
+	}
+
+	void checkValues () {
+		if (water <= 0 || food <= 0 || energy <= 0) {
+			applyStatus (Status.Died);
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {

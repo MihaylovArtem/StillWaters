@@ -37,11 +37,13 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		SwitchToPosition (0);
+		StartCoroutine (addFoodCycle ());
+		foodUnits = maxFoodUnits;
+		waterUnits = maxWaterUnits;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		AddFood ();
 		updateFoodAndWater ();
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SwitchToPosition (0);
@@ -54,16 +56,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void AddFood () {
-		if (!isFishing) {
-			return;
+	IEnumerator addFoodCycle() {
+		if (isFishing) {
+			foodUnits = Mathf.Min (maxFoodUnits, foodUnits + 1);
 		}
-		StartCoroutine ("addOneFoodUnit");
-	}
-
-	IEnumerator addOneFoodUnit() {
-		foodUnits = Mathf.Max (maxFoodUnits, foodUnits + 1);
 		yield return new WaitForSeconds (5.0f);
+		StartCoroutine(addFoodCycle ());
 	}
 
 	void SwitchToPosition (int position) {
