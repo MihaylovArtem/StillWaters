@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour {
 			cameraObject.transform.localRotation = rotation;
 			cameraObject.transform.localPosition = new Vector3 (-4f, 0.8f, -2.6f);
 		}
+		if (Input.GetKeyUp (KeyCode.Escape)) {
+			Application.LoadLevel ("menu");
+		}
 	}
 
 	IEnumerator addFoodCycle() {
