@@ -8,8 +8,9 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: TOD_SYSTEM_FREE_SKY
   m_Shader: {fileID: 4800000, guid: cec78f25d8c98394b909eef378ec15e3, type: 3}
-  m_ShaderKeywords: MIEPHASE MOON MOONHALO NIGHT NIGHTCOLOR SIMPLENIGHTCOLOR STARS
-    STARSNOISE STARSTWINKLE USEHORIZONFADE USEMOON USEMOONHALO USESTARS _EMISSION
+  m_ShaderKeywords: ATMOSPHERICNIGHTCOLOR HORIZONFADE MIEPHASE MOON MOONHALO NIGHT
+    NIGHTCOLOR STARS STARSNOISE STARSTWINKLE USEHORIZONFADE USEMOON USEMOONHALO USESTARS
+    _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -97,7 +98,7 @@ Material:
       second: 0.115
     - first:
         name: _SunSize
-      second: 0.04
+      second: 0.045
     m_Colors:
     - first:
         name: _CloudsParams
@@ -107,4 +108,4 @@ Material:
       second: {r: 0.412, g: 0.384, b: 0.365, a: 1}
     - first:
         name: _SkyTint
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 1}

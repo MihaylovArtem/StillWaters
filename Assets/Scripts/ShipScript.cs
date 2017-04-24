@@ -5,16 +5,6 @@ using System;
 
 public class ShipScript : MonoBehaviour {
 
-	private Rigidbody _shipRigidbody;
-	private Rigidbody shipRigidbody {
-		get {
-			if (!_shipRigidbody) {
-				_shipRigidbody = gameObject.GetComponent<Rigidbody> ();
-			}
-			return _shipRigidbody;
-		}
-	}
-
 	// Use this for initialization
 	void Start () {
 
@@ -27,6 +17,6 @@ public class ShipScript : MonoBehaviour {
 
 	void setSpeed () {
 		var speedMultiplier = (Convert.ToInt32 (GameManager.isRowingLeft) + Convert.ToInt32 (GameManager.isRowingRight));
-		shipRigidbody.velocity = new Vector3 (0, 0, 10 * speedMultiplier);
+		transform.Translate (new Vector3(1,0,0) * Time.deltaTime * speedMultiplier);
 	}
 }
