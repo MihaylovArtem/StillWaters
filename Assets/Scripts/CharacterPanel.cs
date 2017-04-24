@@ -8,6 +8,7 @@ public class CharacterPanel : MonoBehaviour {
 	public Image hungerImage;
 	public Image waterImage;
 	public Image sleepImage;
+	public Text status;
 
 	public DudeScript dude;
 
@@ -18,29 +19,40 @@ public class CharacterPanel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		updateStatus ();
 		updateEnergyColor ();
 		updateFoodColor ();
 		updateWaterColor ();
 	}
 
+	void updateStatus () {
+		status.text = dude.activeControl ? "Active" : "Press " + (dude.dudeIndex+1).ToString ();
+		if (dude.currentStatus == DudeScript.Status.Died) {
+			status.text = "Dead";
+		}
+	}
+
 	void updateFoodColor () {
 		var food = dude.food;
+		var alpha = food > DudeScript.maxFood / 4f * 3f ? 0f : (DudeScript.maxFood - food) / (DudeScript.maxFood / 4f);
 		var red = (food <= DudeScript.maxFood / 2) ? 1.0f : (DudeScript.maxFood - food) / (DudeScript.maxFood / 2);
 		var green = (food >= DudeScript.maxFood / 2) ? 1.0f : (food / (DudeScript.maxFood / 2));
-		hungerImage.color = new Color (red, green, 0.0f);
+		hungerImage.color = new Color (red, green, 0.0f, alpha);
 	}
 
 	void updateWaterColor () {
 		var water = dude.water;
+		var alpha = water > DudeScript.maxWater / 4f * 3f ? 0f : (DudeScript.maxWater - water) / (DudeScript.maxWater / 4f);
 		var red = (water <= DudeScript.maxWater / 2) ? 1.0f : (DudeScript.maxWater - water) / (DudeScript.maxWater / 2);
 		var green = (water >= DudeScript.maxWater / 2) ? 1.0f : (water / (DudeScript.maxWater / 2));
-		waterImage.color = new Color (red, green, 0.0f);
+		waterImage.color = new Color (red, green, 0.0f, alpha);
 	}
 
 	void updateEnergyColor () {
 		var energy = dude.energy;
+		var alpha = energy > DudeScript.maxEnergy / 4f * 3f ? 0f : (DudeScript.maxEnergy - energy) / (DudeScript.maxEnergy / 4f);
 		var red = (energy <= DudeScript.maxEnergy / 2) ? 1.0f : (DudeScript.maxEnergy - energy) / (DudeScript.maxEnergy / 2);
 		var green = (energy >= DudeScript.maxEnergy / 2) ? 1.0f : (energy / (DudeScript.maxEnergy / 2));
-		sleepImage.color = new Color (red, green, 0.0f);
+		sleepImage.color = new Color (red, green, 0.0f, alpha);
 	}
 }

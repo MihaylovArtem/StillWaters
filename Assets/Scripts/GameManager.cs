@@ -68,18 +68,30 @@ public class GameManager : MonoBehaviour {
 
 	void SwitchToPosition (int position) {
 		var lastDudeScript = players[currentCameraPosition].GetComponent<DudeScript>();
-		lastDudeScript.MakeActive (false);
-		cameraObject.transform.parent = players[position].transform;
-		var dudeScript = players[position].GetComponent<DudeScript>();
-		dudeScript.MakeActive (true);
-		cameraObject.transform.localRotation = Quaternion.identity;
-		var scale = players [position].transform.localScale.x;
-		cameraObject.transform.localPosition = new Vector3(0, 3.5f, 0.5f);
-		currentCameraPosition = position;
+		if (lastDudeScript.currentStatus != DudeScript.Status.Died) {
+			lastDudeScript.MakeActive (false);
+			cameraObject.transform.parent = players [position].transform;
+			var dudeScript = players [position].GetComponent<DudeScript> ();
+			dudeScript.MakeActive (true);
+			cameraObject.transform.localRotation = Quaternion.identity;
+			cameraObject.transform.localPosition = new Vector3 (0, 3.5f, 0.5f);
+			currentCameraPosition = position;
+		}
 	}
 
 	void updateFoodAndWater() {
 		foodText.text = "x" + foodUnits.ToString ();
 		waterText.text = "x" + waterUnits.ToString ();
+	}
+
+	public void killPersonAndAssignRandom(GameObject whoToKill) {
+		foreach (GameObject player in players) {
+			var dudeScript = player.GetComponent <DudeScript> ();
+			if (dudeScript.currentStatus != DudeScript.Status.Died && player != whoToKill) {
+				SwitchToPosition (dudeScript.dudeIndex);
+				break;
+			}
+		}
+		whoToKill.GetComponent <DudeScript>().applyStatus (DudeScript.Status.Died);
 	}
 }

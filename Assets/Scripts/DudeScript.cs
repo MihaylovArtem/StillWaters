@@ -18,6 +18,8 @@ public class DudeScript : MonoBehaviour {
 
 	public bool activeControl = false;
 
+	private string[] thoughts = new string[2] {"Hate being in the ocean", "Wow, what a view"};
+
 	public enum Status {
 		Idle,
 		Fishing,
@@ -30,8 +32,12 @@ public class DudeScript : MonoBehaviour {
 	private string currentAnimation;
 	private string previousAnimation;
 	public Status currentStatus;
+	public GameManager gameManager;
 
 	public RaycastHit whatIHit;
+	private AudioSource source { get { return GetComponent<AudioSource> (); } }
+	public AudioClip deathSound;
+	public int dudeIndex;
 
 	private FirstPersonController _controllerScript;
 	public  FirstPersonController  controllerScript { 
@@ -45,10 +51,10 @@ public class DudeScript : MonoBehaviour {
 
 	public Animator anim { get { return this.GetComponent <Animator> (); } }
 
-
 	// Use this for initialization
 	void Start () {
-		
+		gameObject.AddComponent<AudioSource>();
+		source.playOnAwake = false;
 	}
 	
 	// Update is called once per frame
@@ -173,7 +179,7 @@ public class DudeScript : MonoBehaviour {
 		}
 	}
 
-	private void applyStatus(Status status) {
+	public void applyStatus(Status status) {
 		currentStatus = status;
 		switch (status) {
 		case Status.Died:
@@ -195,8 +201,31 @@ public class DudeScript : MonoBehaviour {
 	}
 
 	void checkInteraction () {
-		if (Physics.Raycast (this.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
-			//TODO: надпись press "E"
+		if (activeControl) {
+			if (Physics.Raycast (this.transform.position, Camera.main.transform.forward, out whatIHit, 1f) && activeControl) {
+				//TODO: надпись press "E"
+				if (Input.GetKeyUp (KeyCode.E)) {
+					if (currentStatus != Status.Idle) {
+						applyStatus (Status.Idle);
+					} else {
+						//TODO: добавить занятия
+					}
+				}
+			}
+		}
+	}
+
+	IEnumerable sayRandomThought() {
+		if (currentStatus != Status.Died) {
+			int index = Random.Range(0, thoughts.Length);
+			var thought = thoughts [index];
+		}
+	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "WaterPlane") {
+			gameManager.killPersonAndAssignRandom (this.gameObject);
+			source.PlayOneShot (deathSound);
 		}
 	}
 }
