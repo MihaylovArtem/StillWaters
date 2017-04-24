@@ -219,7 +219,6 @@ public class DudeScript : MonoBehaviour {
 					} else {
 						switch (whatIHit.collider.gameObject.tag) {
 						case "FishingObject":
-							Debug.Log ("fishing!!!!!!!!!!!!!!");
 							applyStatus (Status.Fishing);
 							break;
 						case "RelaxObject":
@@ -230,6 +229,12 @@ public class DudeScript : MonoBehaviour {
 							break;
 						case "WaterObject":
 							drink ();
+							break;
+						case "LeftPaddle":
+							applyStatus (Status.RowingLeft);
+							break;
+						case "RightPaddle":
+							applyStatus (Status.RowingRight);
 							break;
 						}
 					}

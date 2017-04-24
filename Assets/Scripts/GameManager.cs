@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour {
 	public static int waterUnits;
 	public static readonly int maxWaterUnits = 10;
 
-	public static bool isFishing;
-	public static bool isRelaxing;
-	public static bool isRowingLeft = true;
-	public static bool isRowingRight = true;
+	public static bool isFishing = false;
+	public static bool isRelaxing = false;
+	public static bool isRowingLeft = false;
+	public static bool isRowingRight = false;
 
 	public Text dayText;
 	public Text descriptionText;
