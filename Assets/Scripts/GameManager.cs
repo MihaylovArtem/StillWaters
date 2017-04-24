@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using AC.TimeOfDaySystemFree;
 
 
 public class GameManager : MonoBehaviour {
@@ -23,8 +24,15 @@ public class GameManager : MonoBehaviour {
 	public static bool isRowingLeft = true;
 	public static bool isRowingRight = true;
 
+	public Text dayText;
+	public Text descriptionText;
 	public Text foodText;
 	public Text waterText;
+	public TimeOfDayManager timeManager;
+
+	private int dayCount = 0;
+	private int nightCount = 0;
+	private bool countChanged = false;
 
 	public enum GameState {
 		MainMenu,
@@ -43,6 +51,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		AddFood ();
 		updateFoodAndWater ();
+		updateDayCounter ();
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SwitchToPosition (0);
 		} else if (Input.GetKeyUp (KeyCode.Alpha2)) {
@@ -68,7 +77,8 @@ public class GameManager : MonoBehaviour {
 
 	void SwitchToPosition (int position) {
 		var lastDudeScript = players[currentCameraPosition].GetComponent<DudeScript>();
-		if (lastDudeScript.currentStatus != DudeScript.Status.Died) {
+		var newDudeScript = players [position].GetComponent <DudeScript> ();
+		if (newDudeScript.currentStatus != DudeScript.Status.Died) {
 			lastDudeScript.MakeActive (false);
 			cameraObject.transform.parent = players [position].transform;
 			var dudeScript = players [position].GetComponent<DudeScript> ();
@@ -82,6 +92,41 @@ public class GameManager : MonoBehaviour {
 	void updateFoodAndWater() {
 		foodText.text = "x" + foodUnits.ToString ();
 		waterText.text = "x" + waterUnits.ToString ();
+	}
+
+	void updateDayCounter() {
+		if (timeManager.timeline > 7 && timeManager.timeline < 8 && !countChanged) {
+			Debug.Log ("Day: " + timeManager.timeline + " " + dayCount);
+			dayCount++;
+			countChanged = true;
+		} else if (timeManager.timeline > 18 && timeManager.timeline < 19 && !countChanged) {
+			nightCount++;
+			countChanged = true;
+		}
+		if (timeManager.timeline > 8 && timeManager.timeline < 9) {
+			countChanged = false;
+		} else if (timeManager.timeline > 19 && timeManager.timeline < 20) {
+			countChanged = false; 
+		}
+		if (timeManager.timeline > 6 && timeManager.timeline < 7) {
+			dayText.color = new Color (0, 0, 0, timeManager.timeline - 6);
+			dayText.text = "Day " + dayCount.ToString ();
+		} else if (timeManager.timeline > 7.5f && timeManager.timeline < 8.5f) {
+			dayText.color = new Color (0, 0, 0, 8.5f - timeManager.timeline);
+			dayText.text = "Day " + dayCount.ToString ();
+		} else if (timeManager.timeline > 17 && timeManager.timeline < 18) {
+			dayText.color = new Color (0, 0, 0, timeManager.timeline - 17);
+			dayText.text = "Night " + nightCount.ToString ();
+		} else if (timeManager.timeline > 18.5f && timeManager.timeline < 19.5f) {
+			dayText.color = new Color (0, 0, 0, 19.5f - timeManager.timeline);
+			dayText.text = "Night " + nightCount.ToString ();
+		} else if (timeManager.timeline >= 18 && timeManager.timeline <= 18.5f) {
+			dayText.color = new Color (0, 0, 0, 1);
+		} else if (timeManager.timeline >= 7 && timeManager.timeline <= 7.5f) {
+			dayText.color = new Color (0, 0, 0, 1);
+		} else {
+			dayText.color = new Color (0, 0, 0, 0);
+		}
 	}
 
 	public void killPersonAndAssignRandom(GameObject whoToKill) {

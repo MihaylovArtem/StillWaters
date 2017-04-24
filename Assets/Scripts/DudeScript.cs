@@ -19,7 +19,10 @@ public class DudeScript : MonoBehaviour {
 
 	public bool activeControl = false;
 
-	private string[] thoughts = new string[2] {"Hate being in the ocean", "Wow, what a view"};
+	private string[] thoughts = new string[15] {"What a great day!", "Does anyone else hear this song?", "Yummi, fish again!", 
+		"* whistling*", "Let's make a pool-party!", "Did I turn off the iron?!", "Is the water warm?..", "Hmm... How did I get here?", 
+		"Sh*t! I's a hockey match today!", "Bazinga!", "I wanna coffee...", "Yo ho ho and a bottle of rum!", 
+		"Столица, водка, советский медведь наш!", "Tequila to all at my expense", "*Burp*"};
 	public Text thoughtText;
 	public GameObject thoughtPanel;
 
@@ -40,6 +43,7 @@ public class DudeScript : MonoBehaviour {
 	public RaycastHit whatIHit;
 	private AudioSource source { get { return GetComponent<AudioSource> (); } }
 	public AudioClip deathSound;
+	public AudioClip sighSound;
 	public int dudeIndex;
 
 	private FirstPersonController _controllerScript;
@@ -58,6 +62,8 @@ public class DudeScript : MonoBehaviour {
 	void Start () {
 		gameObject.AddComponent<AudioSource>();
 		source.playOnAwake = false;
+		var coroutine = sayRandomThought();
+		StartCoroutine(coroutine);
 	}
 	
 	// Update is called once per frame
@@ -218,14 +224,23 @@ public class DudeScript : MonoBehaviour {
 		}
 	}
 
-	void sayRandomThought() {
-		thoughtPanel.SetActive (true);
-		if (currentStatus != Status.Died) {
-			int index = Random.Range(0, thoughts.Length);
-			var thought = thoughts [index];
-//			thoughtPanel
+	// every 2 seconds perform the print()
+	private IEnumerator sayRandomThought()
+	{
+		while (true)
+		{
+			var waitTime = Random.Range (20f, 70f);
+			yield return new WaitForSeconds(waitTime);
+
+			source.PlayOneShot (sighSound);
+			thoughtPanel.SetActive (true);
+			if (currentStatus != Status.Died && !activeControl) {
+				int index = Random.Range(0, thoughts.Length);
+				var thought = thoughts [index];
+				thoughtText.text = thought;
+			}
+			Invoke ("hideThoughtPanel", 8.0f);
 		}
-//		Invoke ("hideThought", 3f);
 	}
 
 	void hideThoughtPanel() {

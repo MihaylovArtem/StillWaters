@@ -9,8 +9,11 @@ public class CharacterPanel : MonoBehaviour {
 	public Image waterImage;
 	public Image sleepImage;
 	public Text status;
-
+	public Image panelBack  { get { return this.GetComponent<Image> (); } }
 	public DudeScript dude;
+	private Color activeColor = new Color (0f, 1f, 0f, 0.4f);
+	private Color nonActiveColor = new Color (1f, 1f, 1f, 0.4f);
+	private Color deadColor = new Color (1f, 0f, 0f, 0.4f);
 
 	// Use this for initializatiosn
 	void Start () {
@@ -26,9 +29,9 @@ public class CharacterPanel : MonoBehaviour {
 	}
 
 	void updateStatus () {
-		status.text = dude.activeControl ? "Active" : "Press " + (dude.dudeIndex+1).ToString ();
+		panelBack.color = dude.activeControl ? activeColor : nonActiveColor;
 		if (dude.currentStatus == DudeScript.Status.Died) {
-			status.text = "Dead";
+			panelBack.color = deadColor;
 		}
 	}
 
